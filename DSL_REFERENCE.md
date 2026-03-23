@@ -169,6 +169,9 @@ MSI options go into an `msi` block:
 * `bitmapBanner`: Fie - a 493 x 58 pixels bmp image file used as a top
   banner on other dialogs
   (see [Wix UI Customization Guide](https://wixtoolset.org/docs/v3/wixui/wixui_customizations/#replacing-the-default-bitmaps))
+* `addRunAfterInstall`: Boolean (default: `false`) - add a dialog box 
+  "Run &lt;application&gt;" that, when clicked will start the installed
+  application on exiting the installer
 
 ## macOS options
 

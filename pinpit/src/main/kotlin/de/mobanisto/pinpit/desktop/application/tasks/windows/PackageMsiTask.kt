@@ -105,6 +105,10 @@ abstract class PackageMsiTask @Inject constructor(
     @get:Internal
     val appResourcesDir: DirectoryProperty = objects.directoryProperty()
 
+    @get:Input
+    @get:Optional
+    val addRunAfterInstall: Property<Boolean> = objects.notNullProperty()
+
     /**
      * Gradle runtime verification fails,
      * if InputDirectory is not null, but a directory does not exist.
@@ -157,6 +161,7 @@ abstract class PackageMsiTask @Inject constructor(
         val shortcut = shortcut.get()
         val menuGroup = menuGroup.orNull
         val perUserInstall = perUserInstall.get()
+        val addRunAfterInstall = addRunAfterInstall.get()
 
         val destinationWix = workingDir.asPath().resolve("wix")
         Files.createDirectories(destinationWix)
@@ -180,10 +185,13 @@ abstract class PackageMsiTask @Inject constructor(
             shortcut,
             menuGroup,
             perUserInstall,
+            addRunAfterInstall,
         ).execute()
 
         val outputInstallDir = destinationWix.resolve("InstallDir.wxs")
-        Thread.currentThread().contextClassLoader.getResourceAsStream("wix/InstallDir.wxs")?.use {
+        Thread.currentThread().contextClassLoader.getResourceAsStream(
+            if (addRunAfterInstall) "wix/InstallDir_run.wxs" else "wix/InstallDir.wxs"
+        )?.use {
             Files.copy(it, outputInstallDir)
         }
 

@@ -32,6 +32,7 @@ class GenerateProductWxs(
     private val shortcut: Boolean,
     private val menuFolder: String?,
     private val perUserInstall: Boolean,
+    private val addRunAfterInstall: Boolean,
 ) {
 
     fun execute() {
@@ -110,6 +111,21 @@ class GenerateProductWxs(
         product.createChild("Property", "WIXUI_INSTALLDIR") {
             setAttribute("Value", "INSTALLDIR")
         }
+
+        if (addRunAfterInstall) {
+            product.createChild("Property", "WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT") {
+                setAttribute("Value", "Run ${name}")
+            }
+            product.createChild("Property", "WIXUI_EXITDIALOGOPTIONALCHECKBOX") {
+                setAttribute("Value", "1")
+            }
+            product.createChild("CustomAction", "LaunchApplication") {
+                setAttribute("FileKey", mainExecutable.fileId)
+                setAttribute("ExeCommand", "")
+                setAttribute("Return", "asyncNoWait")
+            }
+        }
+
         product.createChild("UIRef", "InstallUI")
 
         product.createChild("Icon", iconId) {

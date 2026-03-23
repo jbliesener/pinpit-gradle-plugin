@@ -792,6 +792,7 @@ internal fun JvmApplicationContext.configurePlatformSettings(
         packageTask.iconFile.set(win.iconFile.orElse(unpackDefaultResources.flatMap { it.resources.windowsIcon }))
         packageTask.bitmapBanner.set(msi.bitmapBanner)
         packageTask.bitmapDialog.set(msi.bitmapDialog)
+        packageTask.addRunAfterInstall.set(msi.addRunAfterInstall)
     }
 }
 
