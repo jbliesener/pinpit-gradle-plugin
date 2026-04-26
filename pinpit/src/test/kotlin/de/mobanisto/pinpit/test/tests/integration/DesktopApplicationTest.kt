@@ -300,6 +300,7 @@ class DesktopApplicationTest : GradlePluginTestBase() {
             packaging.resolve("deb/postinst"),
             packaging.resolve("deb/prerm"),
             packaging.resolve("deb/postrm"),
+            "amd64"
         )
         packager.createPackage()
         return outputDir

@@ -42,6 +42,7 @@ abstract class AbstractDebPackager(
     private val debPostInst: Path?,
     private val debPreRm: Path?,
     private val debPostRm: Path?,
+    private val architecture: String,
 ) {
 
     companion object {
@@ -136,7 +137,7 @@ abstract class AbstractDebPackager(
                 writeLn("Section: $appCategory")
                 writeLn("Maintainer: $packageVendor <$debMaintainer>")
                 writeLn("Priority: optional")
-                writeLn("Architecture: amd64")
+                writeLn("Architecture: $architecture")
                 writeLn("Provides: $linuxPackageName")
                 writeLn("Description: $packageDescription")
                 writeLn("Depends: ${list.joinToString(", ")}")
