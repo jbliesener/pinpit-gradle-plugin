@@ -54,6 +54,7 @@ class JvmDebPackager(
     debPostInst: Path?,
     debPreRm: Path?,
     debPostRm: Path?,
+    arch: String,
 ) : AbstractDebPackager(
     workingDir,
     packageName,
@@ -70,7 +71,8 @@ class JvmDebPackager(
     debPreInst,
     debPostInst,
     debPreRm,
-    debPostRm
+    debPostRm,
+    arch
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(JvmDebPackager::class.java)

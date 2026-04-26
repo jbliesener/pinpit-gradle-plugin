@@ -30,7 +30,6 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.process.ExecResult
 import javax.inject.Inject
-import sun.awt.im.InputContext
 
 abstract class PackageDebTask @Inject constructor(
     target: Target,
@@ -115,7 +114,7 @@ abstract class PackageDebTask @Inject constructor(
 
     @get:Input
     @get:Optional
-    val architecture: Property<String> = objects.nullableProperty()
+    val arch: Property<String> = objects.notNullProperty()
 
     private lateinit var jvmRuntimeInfo: JvmRuntimeProperties
 
@@ -172,7 +171,7 @@ abstract class PackageDebTask @Inject constructor(
             debPostInst.orNull?.asPath(),
             debPreRm.orNull?.asPath(),
             debPostRm.orNull?.asPath(),
-            architecture.orNull ?: "amd64"
+            arch.get()
         )
         packager.createPackage()
     }

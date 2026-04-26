@@ -766,7 +766,7 @@ internal fun JvmApplicationContext.configurePlatformSettings(
         packageTask.debCopyright.set(linux.debCopyright)
         packageTask.debLauncher.set(linux.debLauncher)
         packageTask.depends.set(deb.depends)
-        packageTask.architecture.set(deb.arch)
+        packageTask.arch.set(deb.arch)
     }
 }
 
