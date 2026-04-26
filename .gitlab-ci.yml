@@ -1,0 +1,10 @@
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=/opt/maven/repository
+
+publish:
+  image: openjdk:17-ea-slim-buster
+  script:
+    - ./gradlew $MAVEN_OPTS publishToMavenLocal
+
+  tags:
+    - java
